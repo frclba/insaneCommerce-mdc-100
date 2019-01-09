@@ -2,5 +2,12 @@ import 'package:flutter/material.dart';
 
 
 class HomePage extends StatelessWidget {
-//TODO: IMPLEMENT CLASS (101)
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Center(
+        child: Text('You did it!'),
+      ),
+    );
+  }
 }
