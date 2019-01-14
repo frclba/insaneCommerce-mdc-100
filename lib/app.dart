@@ -40,10 +40,19 @@ ThemeData _buildShrineTheme(String color) {
         buttonColor: kShrineBlue100,
         textTheme: ButtonTextTheme.normal,
       ),
+      primaryIconTheme: base.iconTheme.copyWith(
+        color: kShrineBrown900
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(),
+      ),
       scaffoldBackgroundColor: kShrineBackgroundWhite,
       cardColor: kShrineBackgroundWhite,
       textSelectionColor: kShrineBlue100,
       errorColor: kShrineErrorIndigo,
+      textTheme: _buildShrineTextTheme(base.textTheme),
+      primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+      accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
     );
   }
   else {
@@ -60,6 +69,25 @@ ThemeData _buildShrineTheme(String color) {
     errorColor: kShrineErrorRed,
     );
   }
+}
+
+TextTheme _buildShrineTextTheme(TextTheme base) {
+  return base.copyWith(
+    headline: base.headline.copyWith(
+      fontWeight: FontWeight.w500,
+    ),
+    title: base.title.copyWith(
+      fontSize: 18.0
+    ),
+    caption: base.caption.copyWith(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.0,
+    ),
+  ).apply(
+    fontFamily: 'Rubik',
+    displayColor: kShrineBrown900,
+    bodyColor: kShrineBrown900,
+  );
 }
 
 // TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
