@@ -3,6 +3,8 @@ import 'home.dart';
 import 'login.dart';
 import 'colors.dart';
 
+import 'supplemental/cut_corners_border.dart';
+
 final ThemeData _kShrineTheme = _buildShrineTheme("blue");
 
 class InsaneApp extends StatelessWidget{
