@@ -46,7 +46,7 @@ ThemeData _buildShrineTheme(String color) {
         color: kShrineBrown900
       ),
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(),
+        border: CutCornersBorder(),
       ),
       scaffoldBackgroundColor: kShrineBackgroundWhite,
       cardColor: kShrineBackgroundWhite,
