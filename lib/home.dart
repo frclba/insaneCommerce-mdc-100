@@ -4,8 +4,6 @@ import 'package:intl/intl.dart';
 import 'model/products_repository.dart';
 import 'model/product.dart';
 
-import 'supplemental/asymmetric_view.dart';
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -34,11 +32,15 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      // TODO -> Change the body to show items differently
-      body: AsymmetricView(products: ProductsRepository.loadProducts(Category.all)),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: EdgeInsets.all(16.0),
+        childAspectRatio: 8.0 / 9.0,
+        children: _buildGridCards(context),
+      ),
     );
   }
- // TODO ???
+
   List<Card> _buildGridCards(BuildContext context) {
     List<Product> products = ProductsRepository.loadProducts(Category.all);
       
