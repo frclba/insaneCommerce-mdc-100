@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
+import 'app.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context){
+    String colorMode = InsaneApp.colorMode;
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -21,7 +24,10 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/diamond.png'),
+                Image.asset(
+                  'assets/diamond.png',
+                  color: colorMode == "nightMode" ? kShrineBackgroundWhite : null,
+                ),
                 SizedBox(height: 16.0),
                 Text('Insane'),
               ],
@@ -29,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 120.0),
             // [LOGIN]
             AccentColorOverride(
-              color: kShrineBrown900,
+              color: colorMode == "nightMode" ? kShrineAltYellow : kShrineBrown900,
               child: TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -42,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             
             // [PASSWORD]
             AccentColorOverride(
-              color: kShrineBrown900,
+              color: colorMode == "nightMode" ? kShrineAltYellow : kShrineBrown900,
               child: TextField(
                 controller: _passwordController,
                 decoration: InputDecoration(

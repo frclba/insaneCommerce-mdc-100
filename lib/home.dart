@@ -3,13 +3,14 @@ import 'package:intl/intl.dart';
 
 import 'model/products_repository.dart';
 import 'model/product.dart';
+import 'app.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light,
+        brightness: InsaneApp.colorMode == "nightMode" ? Brightness.dark : Brightness.light,
         leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {

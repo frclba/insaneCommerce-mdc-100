@@ -5,9 +5,12 @@ import 'colors.dart';
 
 import 'supplemental/cut_corners_border.dart';
 
-final ThemeData _kShrineTheme = _buildShrineTheme("blue");
+final ThemeData _kShrineTheme = _buildShrineTheme("yellow");
 
 class InsaneApp extends StatelessWidget{
+   static String colorMode = "";
+  // TODO -> private methods with getter and setter
+  
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -33,8 +36,12 @@ class InsaneApp extends StatelessWidget{
 
 ThemeData _buildShrineTheme(String color) {
   final ThemeData base = ThemeData.light();
-
+  Color fontColor;
+  
   if (color == "blue") {
+    InsaneApp.colorMode = "dayMode";
+    fontColor = kShrineBrown900;
+
     return base.copyWith(
       accentColor: kShrineIndigo900,
       primaryColor: kShrineBlue100,
@@ -52,12 +59,39 @@ ThemeData _buildShrineTheme(String color) {
       cardColor: kShrineBackgroundWhite,
       textSelectionColor: kShrineBlue100,
       errorColor: kShrineErrorIndigo,
-      textTheme: _buildShrineTextTheme(base.textTheme),
-      primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
-      accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
+      textTheme: _buildShrineTextTheme(base.textTheme, fontColor),
+      primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme, fontColor),
+      accentTextTheme: _buildShrineTextTheme(base.accentTextTheme, fontColor),
     );
   }
+  if (color == "yellow"){
+    InsaneApp.colorMode = "nightMode";
+    final ThemeData baseDark = ThemeData.dark();
+    fontColor = kShrineBackgroundWhite;
+
+    return baseDark.copyWith(
+      accentColor: kShrineAltDarkGrey,
+      primaryColor: kShrineAltDarkGrey,
+      buttonColor: kShrineAltYellow,
+      scaffoldBackgroundColor: kShrineAltDarkGrey,
+      cardColor: kShrineAltDarkGrey,
+      textSelectionColor: kShrinePink100,
+      errorColor: kShrineErrorRed,
+      textTheme: _buildShrineTextTheme(baseDark.textTheme, fontColor),
+      primaryTextTheme: _buildShrineTextTheme(baseDark.primaryTextTheme, fontColor),
+      accentTextTheme: _buildShrineTextTheme(baseDark.accentTextTheme, fontColor),
+      primaryIconTheme: base.iconTheme.copyWith(
+        color: kShrineAltYellow
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: CutCornersBorder(),
+      ),
+    );
+  }
+
   else {
+    InsaneApp.colorMode = "dayMode";
+
     return base.copyWith(
     accentColor: kShrineBrown900,
     primaryColor: kShrinePink100,
@@ -73,7 +107,7 @@ ThemeData _buildShrineTheme(String color) {
   }
 }
 
-TextTheme _buildShrineTextTheme(TextTheme base) {
+TextTheme _buildShrineTextTheme(TextTheme base, Color fontColor) {
   return base.copyWith(
     headline: base.headline.copyWith(
       fontWeight: FontWeight.w500,
@@ -87,14 +121,14 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
     ),
   ).apply(
     fontFamily: 'Rubik',
-    displayColor: kShrineBrown900,
-    bodyColor: kShrineBrown900,
+    displayColor: fontColor,
+    bodyColor: fontColor,
   );
 }
+
+// TODO -> Create working button for night mode
 
 // TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
 // TODO: Make currentCategory field take _currentCategory (104)
 // TODO: Pass _currentCategory for frontLayer (104)
 // TODO: Change backLayer field value to CategoryMenuPage (104)
-// TODO: Build a Shrine Theme (103)
-// TODO: Build a Shrine Text Theme (103)
