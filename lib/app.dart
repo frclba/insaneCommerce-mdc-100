@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'login.dart';
 import 'colors.dart';
+import 'backdrop.dart';
 
 import 'supplemental/cut_corners_border.dart';
+import 'model/product.dart';
 
 final ThemeData _kShrineTheme = _buildShrineTheme("blue");
 
 class InsaneApp extends StatelessWidget{
    static String colorMode = "";
   // TODO -> private methods with getter and setter
-  
+
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Insane',
-      home: HomePage(),
+      home: Backdrop(
+        currentCategory: Category.all,
+        frontLayer: HomePage(),
+        backLayer: Container(color: kShrineBlue50), // TODO Make Nighmode logic working properly
+        frontTitle: Text('InsanEcommerce'),
+        backTitle: Text('MENU'),
+      ),
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
       theme: _kShrineTheme,
