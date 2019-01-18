@@ -3,6 +3,8 @@ import 'package:meta/meta.dart';
 
 import 'model/product.dart';
 
+const double _KFlingVelocity = 2.0;
+
 // TODO -> add velocity constant
 class Backdrop extends StatefulWidget {
   final Category currentCategory;
@@ -17,11 +19,11 @@ class Backdrop extends StatefulWidget {
     @required this.backLayer,
     @required this.frontTitle,
     @required this.backTitle,
-  }) : assert(currentCategory != null),
-       assert(frontLayer != null),
-       assert(backLayer != null),
-       assert(frontTitle != null),
-       assert(backTitle != null);
+  })  : assert(currentCategory != null),
+        assert(frontLayer != null),
+        assert(backLayer != null),
+        assert(frontTitle != null),
+        assert(backTitle != null);
 
   @override
   _BackdropState createState() => _BackdropState();
@@ -31,15 +33,65 @@ class _BackdropState extends State<Backdrop>
     with SingleTickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
 
-  // TODO: Add animationController Widget
-  // TODO: Add buildContext and BoxConstraints parameters to _buildStack
+  AnimationController _controller;
 
-  Widget _buildStack() {
-    return Stack (
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      value: 1.0,
+      vsync: this,
+    );
+  }
+
+  // TODO -> Add override for didUpdateWidget
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // TODO -> Add functions to get and change front layer visibility
+  bool get _frontLayerVisible {
+    final AnimationStatus status = _controller.status;
+    return status == AnimationStatus.completed ||
+        status == AnimationStatus.forward;
+  }
+
+  void _toggleBackdropLayerVisibility() {
+    _controller.fling(
+        velocity: _frontLayerVisible ? -_KFlingVelocity : _KFlingVelocity);
+  }
+
+  // TODO: Add buildContext and BoxConstraints parameters to _buildStack
+  Widget _buildStack(BuildContext context, BoxConstraints constraints) {
+    const double layerTitleHeight = 48.0;
+    final Size layerSize = constraints.biggest;
+    final double layerTop = layerSize.height - layerTitleHeight;
+
+    // TODO -> Create a relativeRectTween Animation
+
+    Animation<RelativeRect> layerAnimation = RelativeRectTween(
+      begin: RelativeRect.fromLTRB(
+          0.0, layerTop, 0.0, layerTop - layerSize.height),
+      end: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),
+    ).animate(_controller.view);
+
+    return Stack(
       key: _backdropKey,
       children: <Widget>[
-        widget.backLayer,
-        _FrontLayer(child: widget.frontLayer),
+        ExcludeSemantics(
+          child: widget.backLayer,
+          excluding: _frontLayerVisible,
+        ),
+        PositionedTransition(
+          rect: layerAnimation,
+          child: _FrontLayer(
+            child: widget.frontLayer,
+          ),
+        ),
       ],
     );
   }
@@ -50,13 +102,16 @@ class _BackdropState extends State<Backdrop>
       brightness: Brightness.light,
       elevation: 0.0,
       titleSpacing: 0.0,
-      // TODO -> Replace leading menu icon with IconButton
       // TODO -> Remove leading property
       // TODO -> Create title with _BackdropTitle parameter
-      leading: Icon(Icons.menu),
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: _toggleBackdropLayerVisibility,
+      ),
+      
       title: Text('InsanEcommerce'),
-      actions: <Widget> [
-        IconButton (
+      actions: <Widget>[
+        IconButton(
           icon: Icon(
             Icons.search,
             semanticLabel: 'search',
@@ -76,10 +131,9 @@ class _BackdropState extends State<Backdrop>
         ),
       ],
     );
-    return Scaffold (
+    return Scaffold(
       appBar: appBar,
-      // TODO -> return a layoutBuilder widget
-      body: _buildStack(),
+      body: LayoutBuilder(builder: _buildStack),
     );
   }
 }
@@ -98,7 +152,7 @@ class _FrontLayer extends StatelessWidget {
       elevation: 21.0,
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(33.0)),
-        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -111,6 +165,5 @@ class _FrontLayer extends StatelessWidget {
     );
   }
 }
-
 
 // TODO: Add _BackdropTitle class (104)
