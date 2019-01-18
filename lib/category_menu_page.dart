@@ -11,7 +11,7 @@ class CategoryMenuPage extends StatelessWidget {
 
   const CategoryMenuPage({
     Key key,
-    @required this.currentCategory;
+    @required this.currentCategory,
     @required this.onCategoryTap,
   })  : assert(currentCategory != null),
         assert(onCategoryTap != null);
