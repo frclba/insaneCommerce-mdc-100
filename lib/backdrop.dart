@@ -39,7 +39,7 @@ class _BackdropState extends State<Backdrop>
       key: _backdropKey,
       children: <Widget>[
         widget.backLayer,
-        widget.frontLayer,
+        _FrontLayer(child: widget.frontLayer),
       ],
     );
   }
@@ -84,6 +84,33 @@ class _BackdropState extends State<Backdrop>
   }
 }
 
-// TODO: Add _FrontLayer class (104)
+class _FrontLayer extends StatelessWidget {
+  const _FrontLayer({
+    Key key,
+    this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 21.0,
+      shape: BeveledRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(33.0)),
+        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // TODO -> Add a gestureDetector
+          Expanded(
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
 // TODO: Add _BackdropTitle class (104)
-// TODO: Add _BackdropState class (104)
