@@ -5,7 +5,7 @@ import 'colors.dart';
 
 import 'supplemental/cut_corners_border.dart';
 
-final ThemeData _kShrineTheme = _buildShrineTheme("yellow");
+final ThemeData _kShrineTheme = _buildShrineTheme("blue");
 
 class InsaneApp extends StatelessWidget{
    static String colorMode = "";

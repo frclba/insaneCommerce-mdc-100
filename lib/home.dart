@@ -8,37 +8,11 @@ import 'app.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: InsaneApp.colorMode == "nightMode" ? Brightness.dark : Brightness.light,
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            print('Menu button');
-          },
-        ),
-        title: Text('InsaneApp'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              print('Search button');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.tune),
-            onPressed: () {
-              print('Filter button');
-            },
-          ),
-        ],
-      ),
-      body: GridView.count(
+    return GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.all(16.0),
         childAspectRatio: 8.0 / 9.0,
         children: _buildGridCards(context),
-      ),
     );
   }
 
