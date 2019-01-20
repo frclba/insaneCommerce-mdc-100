@@ -6,6 +6,10 @@ import 'model/product.dart';
 import 'app.dart';
 
 class HomePage extends StatelessWidget {
+  final Category category;
+  const HomePage({this.category: Category.all});
+
+  
   @override
   Widget build(BuildContext context) {
     return GridView.count(

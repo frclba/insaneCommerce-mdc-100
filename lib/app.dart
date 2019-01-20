@@ -3,24 +3,42 @@ import 'home.dart';
 import 'login.dart';
 import 'colors.dart';
 import 'backdrop.dart';
+import 'category_menu_page.dart';
 
 import 'supplemental/cut_corners_border.dart';
 import 'model/product.dart';
 
 final ThemeData _kShrineTheme = _buildShrineTheme("blue");
 
-class InsaneApp extends StatelessWidget{
+class InsaneApp extends StatefulWidget{
    static String colorMode = "";
-  // TODO -> private methods with getter and setter
 
+  @override
+  _InsaneAppState createState() {
+    return new _InsaneAppState();
+  }
+}
+
+class _InsaneAppState extends State<InsaneApp> {
+  Category _currentCategory = Category.all;
+
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
+  
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Insane',
       home: Backdrop(
-        currentCategory: Category.all,
-        frontLayer: HomePage(),
-        backLayer: Container(color: kShrineBlue50), // TODO Make Nighmode logic working properly
+        currentCategory: _currentCategory,
+        frontLayer: HomePage(category: _currentCategory),
+        backLayer: CategoryMenuPage(
+          currentCategory: _currentCategory,
+          onCategoryTap: _onCategoryTap,
+        ), // TODO Make Nighmode logic working properly
         frontTitle: Text('InsanEcommerce'),
         backTitle: Text('MENU'),
       ),
