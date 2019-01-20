@@ -62,7 +62,6 @@ class _BackdropState extends State<Backdrop>
     super.dispose();
   }
 
-  // TODO -> Add functions to get and change front layer visibility
   bool get _frontLayerVisible {
     final AnimationStatus status = _controller.status;
     return status == AnimationStatus.completed ||
@@ -74,7 +73,6 @@ class _BackdropState extends State<Backdrop>
         velocity: _frontLayerVisible ? -_KFlingVelocity : _KFlingVelocity);
   }
 
-  // TODO: Add buildContext and BoxConstraints parameters to _buildStack
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     const double layerTitleHeight = 48.0;
     final Size layerSize = constraints.biggest;
@@ -140,7 +138,6 @@ class _BackdropState extends State<Backdrop>
               context,
               MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             );
-            // TODO -> Add open Login
           },
         ),
       ],

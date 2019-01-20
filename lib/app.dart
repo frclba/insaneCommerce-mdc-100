@@ -10,8 +10,8 @@ import 'model/product.dart';
 
 final ThemeData _kShrineTheme = _buildShrineTheme("blue");
 
-class InsaneApp extends StatefulWidget{
-   static String colorMode = "";
+class InsaneApp extends StatefulWidget {
+  static String colorMode = "";
 
   @override
   _InsaneAppState createState() {
@@ -27,9 +27,9 @@ class _InsaneAppState extends State<InsaneApp> {
       _currentCategory = category;
     });
   }
-  
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Insane',
       home: Backdrop(
@@ -38,7 +38,7 @@ class _InsaneAppState extends State<InsaneApp> {
         backLayer: CategoryMenuPage(
           currentCategory: _currentCategory,
           onCategoryTap: _onCategoryTap,
-        ), 
+        ),
         // TODO Make Nighmode logic working properly
         frontTitle: Text('InsanEcommerce'),
         backTitle: Text('MENU'),
@@ -49,8 +49,8 @@ class _InsaneAppState extends State<InsaneApp> {
     );
   }
 
-  Route<dynamic> _getRoute(RouteSettings settings){
-    if(settings.name != '/login'){
+  Route<dynamic> _getRoute(RouteSettings settings) {
+    if (settings.name != '/login') {
       return null;
     }
     return MaterialPageRoute<void>(
@@ -64,7 +64,7 @@ class _InsaneAppState extends State<InsaneApp> {
 ThemeData _buildShrineTheme(String color) {
   final ThemeData base = ThemeData.light();
   Color fontColor;
-  
+
   if (color == "blue") {
     InsaneApp.colorMode = "dayMode";
     fontColor = kShrineBrown900;
@@ -76,9 +76,7 @@ ThemeData _buildShrineTheme(String color) {
         buttonColor: kShrineBlue100,
         textTheme: ButtonTextTheme.normal,
       ),
-      primaryIconTheme: base.iconTheme.copyWith(
-        color: kShrineBrown900
-      ),
+      primaryIconTheme: base.iconTheme.copyWith(color: kShrineBrown900),
       inputDecorationTheme: InputDecorationTheme(
         border: CutCornersBorder(),
       ),
@@ -91,7 +89,7 @@ ThemeData _buildShrineTheme(String color) {
       accentTextTheme: _buildShrineTextTheme(base.accentTextTheme, fontColor),
     );
   }
-  if (color == "yellow"){
+  if (color == "yellow") {
     InsaneApp.colorMode = "nightMode";
     final ThemeData baseDark = ThemeData.dark();
     fontColor = kShrineBackgroundWhite;
@@ -105,57 +103,48 @@ ThemeData _buildShrineTheme(String color) {
       textSelectionColor: kShrinePink100,
       errorColor: kShrineErrorRed,
       textTheme: _buildShrineTextTheme(baseDark.textTheme, fontColor),
-      primaryTextTheme: _buildShrineTextTheme(baseDark.primaryTextTheme, fontColor),
-      accentTextTheme: _buildShrineTextTheme(baseDark.accentTextTheme, fontColor),
-      primaryIconTheme: base.iconTheme.copyWith(
-        color: kShrineAltYellow
-      ),
+      primaryTextTheme:
+          _buildShrineTextTheme(baseDark.primaryTextTheme, fontColor),
+      accentTextTheme:
+          _buildShrineTextTheme(baseDark.accentTextTheme, fontColor),
+      primaryIconTheme: base.iconTheme.copyWith(color: kShrineAltYellow),
       inputDecorationTheme: InputDecorationTheme(
         border: CutCornersBorder(),
       ),
     );
-  }
-
-  else {
+  } else {
     InsaneApp.colorMode = "dayMode";
 
     return base.copyWith(
-    accentColor: kShrineBrown900,
-    primaryColor: kShrinePink100,
-    buttonTheme: base.buttonTheme.copyWith(
-      buttonColor: kShrinePink100,
-      textTheme: ButtonTextTheme.normal,
-    ),
-    scaffoldBackgroundColor: kShrineBackgroundWhite,
-    cardColor: kShrineBackgroundWhite,
-    textSelectionColor: kShrinePink100,
-    errorColor: kShrineErrorRed,
+      accentColor: kShrineBrown900,
+      primaryColor: kShrinePink100,
+      buttonTheme: base.buttonTheme.copyWith(
+        buttonColor: kShrinePink100,
+        textTheme: ButtonTextTheme.normal,
+      ),
+      scaffoldBackgroundColor: kShrineBackgroundWhite,
+      cardColor: kShrineBackgroundWhite,
+      textSelectionColor: kShrinePink100,
+      errorColor: kShrineErrorRed,
     );
   }
 }
 
 TextTheme _buildShrineTextTheme(TextTheme base, Color fontColor) {
-  return base.copyWith(
-    headline: base.headline.copyWith(
-      fontWeight: FontWeight.w500,
-    ),
-    title: base.title.copyWith(
-      fontSize: 18.0
-    ),
-    caption: base.caption.copyWith(
-      fontWeight: FontWeight.w400,
-      fontSize: 14.0,
-    ),
-  ).apply(
-    fontFamily: 'Rubik',
-    displayColor: fontColor,
-    bodyColor: fontColor,
-  );
+  return base
+      .copyWith(
+        headline: base.headline.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
+        title: base.title.copyWith(fontSize: 18.0),
+        caption: base.caption.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14.0,
+        ),
+      )
+      .apply(
+        fontFamily: 'Rubik',
+        displayColor: fontColor,
+        bodyColor: fontColor,
+      );
 }
-
-// TODO -> Create working button for night mode
-
-// TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
-// TODO: Make currentCategory field take _currentCategory (104)
-// TODO: Pass _currentCategory for frontLayer (104)
-// TODO: Change backLayer field value to CategoryMenuPage (104)
