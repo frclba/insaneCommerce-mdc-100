@@ -38,7 +38,8 @@ class _InsaneAppState extends State<InsaneApp> {
         backLayer: CategoryMenuPage(
           currentCategory: _currentCategory,
           onCategoryTap: _onCategoryTap,
-        ), // TODO Make Nighmode logic working properly
+        ), 
+        // TODO Make Nighmode logic working properly
         frontTitle: Text('InsanEcommerce'),
         backTitle: Text('MENU'),
       ),

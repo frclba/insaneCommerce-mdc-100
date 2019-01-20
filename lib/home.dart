@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   final Category category;
   const HomePage({this.category: Category.all});
 
-  
+  // TODO -> FIX Build to pass a category and return only its products
   @override
   Widget build(BuildContext context) {
     return GridView.count(
